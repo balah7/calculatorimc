@@ -20,7 +20,7 @@ Feito com base nos conhecimentos adquiridos no curso de <a href="https://www.you
 
 ## Como Usar
 
-0. Você pode baixar o apk beta <a href="https://www.mediafire.com/file/0qnqtc9xnbb6poq/calculadoraImc.apk/file" target="_blank">clicando aqui</a> (Android)
+0. Você pode baixar o apk beta <a href="https://www.mediafire.com/file/di1a4p3iycpmq6m/calculadoraimc7.apk/file" target="_blank">clicando aqui</a> (Android)
 1. Abra o aplicativo "Calculadora Imc7" em seu dispositivo.
 2. Insira sua altura e peso nos campos apropriados.
 3. Clique no botão "Calcular" para calcular seu IMC.
