@@ -10,6 +10,7 @@ export default function ResultImc({ messageResultImc, resultImc }) {
     };
 
     const getImcColor = (imc) => {
+        if (imc < 17) return "white";
         if (imc < 18.5) return "yellow";
         if (imc < 25) return "green";
         if (imc < 30) return "orange";
@@ -19,18 +20,19 @@ export default function ResultImc({ messageResultImc, resultImc }) {
     return (
         <View style={styles.resultImc}>
             <View style={styles.boxShareButton}>
-                {resultImc ? (
-                    <TouchableOpacity onPress={onShare} style={styles.shared}>
-                        <Text style={styles.sharedText}>Enviar</Text>
-                    </TouchableOpacity>
-                ) : (
-                    <View></View>
-                )}
+                <Text style={styles.information}>{messageResultImc}</Text>
+                <Text
+                    style={[
+                        styles.numberImc,
+                        { color: getImcColor(resultImc) },
+                    ]}
+                >
+                    {resultImc}
+                </Text>
+                <TouchableOpacity onPress={onShare} style={styles.shared}>
+                    <Text style={styles.sharedText}>Enviar</Text>
+                </TouchableOpacity>
             </View>
-            <Text style={styles.information}>{messageResultImc}</Text>
-            <Text style={[styles.numberImc, { color: getImcColor(resultImc) }]}>
-                {resultImc}
-            </Text>
         </View>
     );
 }

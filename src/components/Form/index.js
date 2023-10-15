@@ -10,7 +10,6 @@ import {
 } from "react-native";
 import ResultImc from "./ResultImc";
 import styles from "./style";
-import as from "../Form/ResultAspect/";
 import ResultAspect from "../Form/ResultAspect/";
 
 export default function Form() {
@@ -31,9 +30,19 @@ export default function Form() {
     let weightFormart = weight?.replaceAll(",", ".");
 
     const imcCalculator = () => {
-        return setImc(
-            (weightFormart / (heightFormart * heightFormart)).toFixed(2),
-        );
+        let totalImc = (
+            weightFormart /
+            (heightFormart * heightFormart)
+        ).toFixed(2);
+
+        setImc(totalImc);
+    };
+
+    const verificationImc = () => {
+        if (imc == null) {
+            Vibration.vibrate(165);
+            setErrorMessage("valor inválido*");
+        }
     };
 
     const validationImc = () => {
@@ -41,61 +50,80 @@ export default function Form() {
             !weight ||
             !height ||
             isNaN(weightFormart) ||
-            isNaN(heightFormart)
+            isNaN(heightFormart) ||
+            weight == 0 ||
+            height == 0
         ) {
+            verificationImc();
             setImc(null);
             setTextButton("Calcular");
             setMessageImc("Preencha o peso e altura corretamente");
-            Vibration.vibrate(165);
-            setErrorMessage("campo obrigatório*");
-            return;
+        } else {
+            imcCalculator();
+            setHeight(null);
+            setWeight(null);
+            setMessageImc("Seu IMC é igual:");
+            setTextButton("Calcular Novamente");
+            setErrorMessage(null);
+            setHeightPlaceholder(`Ex. ${heightFormart}`);
+            setWeightPlaceholder(`Ex. ${weightFormart}`);
         }
-
-        imcCalculator();
-        setHeight(null);
-        setWeight(null);
-        setMessageImc("Seu IMC é igual:");
-        setTextButton("Calcular Novamente");
-        setErrorMessage(null);
-        setHeightPlaceholder(`Ex. ${height}`);
-        setWeightPlaceholder(`Ex. ${weight}`);
     };
 
     return (
-        <Pressable onPress={Keyboard.dismiss} style={styles.formContext}>
-            <View style={styles.form}>
-                <Text style={styles.formLabel}>Altura</Text>
-                <Text style={styles.errorMessage}>{errorMessage}</Text>
-                <TextInput
-                    style={styles.input}
-                    onChangeText={setHeight}
-                    value={height}
-                    placeholder={heightPlaceholder}
-                    placeholderTextColor="#7e7a80"
-                    keyboardType="numeric"
-                />
+        <View style={styles.formContext}>
+            {imc == null ? (
+                <Pressable onPress={Keyboard.dismiss} style={styles.form}>
+                    <Text style={styles.formLabel}>Altura</Text>
+                    <Text style={styles.errorMessage}>{errorMessage}</Text>
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={setHeight}
+                        value={height}
+                        placeholder={heightPlaceholder}
+                        placeholderTextColor="#7e7a80"
+                        keyboardType="numeric"
+                    />
 
-                <Text style={styles.formLabel}>Peso</Text>
-                <Text style={styles.errorMessage}>{errorMessage}</Text>
-                <TextInput
-                    style={styles.input}
-                    onChangeText={setWeight}
-                    value={weight}
-                    placeholder={weightPlaceholder}
-                    placeholderTextColor="#7e7a80"
-                    keyboardType="numeric"
-                />
-                <TouchableOpacity
-                    style={styles.ButtonCalculator}
-                    onPress={() => validationImc()}
-                >
-                    <Text style={styles.textButtonCalculator}>
-                        {textButton}
-                    </Text>
-                </TouchableOpacity>
-            </View>
-            <ResultImc messageResultImc={messageImc} resultImc={imc} />
-            <ResultAspect />
-        </Pressable>
+                    <Text style={styles.formLabel}>Peso</Text>
+                    <Text style={styles.errorMessage}>{errorMessage}</Text>
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={setWeight}
+                        value={weight}
+                        placeholder={weightPlaceholder}
+                        placeholderTextColor="#7e7a80"
+                        keyboardType="numeric"
+                    />
+                    <TouchableOpacity
+                        style={styles.ButtonCalculator}
+                        onPress={() => validationImc()}
+                    >
+                        <Text style={styles.textButtonCalculator}>
+                            {textButton}
+                        </Text>
+                    </TouchableOpacity>
+                </Pressable>
+            ) : (
+                <View style={styles.exhibitionResultImc}>
+                    <ResultImc messageResultImc={messageImc} resultImc={imc} />
+                    <ResultAspect />
+                    <TouchableOpacity
+                        style={styles.ButtonCalculatorBack}
+                        onPress={() => validationImc()}
+                    >
+                        <Text style={styles.textButtonCalculator}>
+                            {textButton}
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+            )}
+        </View>
     );
+}
+
+function generateUniqueId() {
+    const timestamp = new Date().getTime(); // Obtém o timestamp atual
+    const random = Math.floor(Math.random() * 1000); // Gera um número aleatório entre 0 e 999
+    return `${timestamp}-${random}`;
 }

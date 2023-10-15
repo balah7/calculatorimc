@@ -2,7 +2,15 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     boxAspect: {
-        flex: 1,
+        width: "100%",
+        height: "50%",
+        alignItems: "center",
+        marginBottom: -32,
+    },
+
+    veryBellow: {
+        color: "white",
+        fontSize: 17.5,
     },
 
     bellow: {

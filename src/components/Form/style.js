@@ -9,7 +9,6 @@ const styles = StyleSheet.create({
         bottom: 0,
         backgroundColor: "#141414",
         alignItems: "center",
-        paddingTop: 18,
         marginTop: 5,
         borderTopRightRadius: 30,
         borderTopLeftRadius: 30,
@@ -18,23 +17,25 @@ const styles = StyleSheet.create({
     form: {
         width: "95%",
         height: "auto",
+        marginTop: 45,
     },
 
     formLabel: {
         color: "#fff",
         fontSize: 20,
-        paddingLeft: 20,
-        marginBottom: 6,
+        paddingLeft: 15,
+        marginTop: 5,
+        marginBottom: 5,
     },
 
     input: {
-        width: "90%",
+        width: "100%",
         borderRadius: 50,
         backgroundColor: "#f2f0f9",
-        height: 42,
+        height: 40,
         margin: 7,
+        marginLeft: -0.5,
         paddingLeft: 15,
-        marginLeft: 8,
         borderWidth: 0.4,
         borderColor: "#1dcc71",
     },
@@ -43,21 +44,36 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         alignItems: "center",
         justifyContent: "center",
-        width: "90%",
+        width: "100%",
         backgroundColor: "#1dcc71",
         paddingTop: 10,
         paddingBottom: 10,
-        marginLeft: 10,
-        marginTop: 10,
         elevation: 5,
+        marginTop: 20,
         shadowColor: "white",
         shadowOffset: { width: 4, height: 4 },
         shadowOpacity: 0.7,
         shadowRadius: 5,
     },
 
+    ButtonCalculatorBack: {
+        borderRadius: 50,
+        alignItems: "center",
+        justifyContent: "center",
+        width: "95%",
+        backgroundColor: "#1dcc71",
+        paddingTop: 10,
+        paddingBottom: 10,
+        elevation: 5,
+        shadowColor: "white",
+        shadowOffset: { width: 4, height: 4 },
+        shadowOpacity: 0.7,
+        shadowRadius: 5,
+        marginLeft: 10,
+    },
+
     textButtonCalculator: {
-        fontSize: 21,
+        fontSize: 20,
         color: "#fff",
     },
 
@@ -65,7 +81,12 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: "red",
         fontWeight: "bold",
-        paddingLeft: 20,
+        paddingLeft: 16,
+    },
+
+    exhibitionResultImc: {
+        width: "90%",
+        height: "50%",
     },
 });
 
